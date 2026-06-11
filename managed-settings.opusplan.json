@@ -1,0 +1,30 @@
+{
+  "_comment": "Cost-aware Claude Code defaults for Amazon Bedrock. DEFAULT is Sonnet 4.6 — the cheap everyday driver — with Opus 4.8, Fable 5, Haiku 4.5, and the opusplan hybrid all one `/model` keystroke away (so escalating to frontier reasoning for a hard task is deliberate, never the silent baseline; forgetting leaves you on the cheap path). Uses ALIASES in `model`/`availableModels`; the ANTHROPIC_DEFAULT_*_MODEL env pins below resolve each alias to the exact Bedrock inference-profile ID (on Bedrock the bare aliases otherwise resolve to OLDER versions — opus->4.6, sonnet->4.5 — so the pins are required). SUBAGENT MODEL is intentionally NOT hard-pinned: CLAUDE.md tiers subagents by value (mechanical->haiku, substantive->sonnet, judge/synthesis->inherit), preserving quality on the deep-research/verification agents this user relies on. opusplan = Opus plans, Sonnet executes; available on demand but not the default because its Opus plan-phase re-reads context at Opus rates every session. effortLevel 'high' is the default for all supported models (Sonnet 4.6, Opus 4.8, Fable 5) — listed here explicitly for documentation; thinking fires adaptively so cost impact is proportional to task complexity. DEPLOY TO (macOS): /Library/Application Support/ClaudeCode/managed-settings.json",
+
+  "model": "sonnet",
+
+  "availableModels": ["sonnet", "opus", "haiku", "fable", "opusplan"],
+
+  "effortLevel": "high",
+
+  "permissions": {
+    "deny": [
+      "Read(~/.ssh/**)",
+      "Read(~/.aws/credentials)"
+    ]
+  },
+
+  "env": {
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "global.anthropic.claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_OPUS_MODEL": "global.anthropic.claude-opus-4-8",
+    "ANTHROPIC_DEFAULT_HAIKU_MODEL": "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "ANTHROPIC_DEFAULT_FABLE_MODEL": "global.anthropic.claude-fable-5",
+
+    "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "60",
+    "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "300000",
+
+    "MAX_MCP_OUTPUT_TOKENS": "10000",
+    "BASH_MAX_OUTPUT_LENGTH": "30000",
+    "CLAUDE_CODE_MAX_TURNS": "200"
+  }
+}

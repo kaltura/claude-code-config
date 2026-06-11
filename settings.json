@@ -1,0 +1,38 @@
+{
+  "env": {
+    "CLAUDE_CODE_EXPERIMENTAL_AGENT_TEAMS": "1",
+    "CLAUDE_CODE_ENABLE_TELEMETRY": "1",
+    "CLAUDE_CODE_ENABLE_GATEWAY_MODEL_DISCOVERY": "1",
+    "OTEL_METRICS_EXPORTER": "otlp",
+    "OTEL_LOGS_EXPORTER": "otlp",
+    "OTEL_EXPORTER_OTLP_PROTOCOL": "http/protobuf",
+    "OTEL_EXPORTER_OTLP_ENDPOINT": "http://127.0.0.1:10198",
+    "OTEL_EXPORTER_OTLP_HEADERS": ""
+  },
+  "enabledPlugins": {
+    "message-timestamps@zoharbabin-claude-tools": true
+  },
+  "extraKnownMarketplaces": {
+    "avatar-presentation-skill": {
+      "source": {
+        "source": "github",
+        "repo": "zoharbabin/avatar-presentation-skill"
+      }
+    },
+    "kalt-ai-plugins": {
+      "source": {
+        "source": "github",
+        "repo": "kaltura/kalt-ai-plugin-marketplace"
+      }
+    },
+    "zoharbabin-claude-tools": {
+      "source": {
+        "source": "github",
+        "repo": "zoharbabin/claude-code-message-timestamps"
+      }
+    }
+  },
+  "skipDangerousModePermissionPrompt": true,
+  "teammateMode": "auto",
+  "skipAutoPermissionPrompt": true
+}
