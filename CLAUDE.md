@@ -32,15 +32,25 @@
 
 ## Subagents and verification
 
-- Tier subagents by passing the `model` parameter — without it they inherit the main-loop model, silently multiplying cost on a frontier session. Omit only when the subtask genuinely needs main-loop capability. Use these shorthands in both Agent tool calls (`model: "sonnet"`) and Workflow `agent(..., {model: "sonnet"})` opts:
-  - `haiku` — mechanical, no-reasoning tasks: format/link validation, grep, JSON reshaping, counting or diffing.
-  - `sonnet` — single-domain substantive work: code analysis, research, fact verification, writing review, moderate implementation or debugging.
-  - `opus` — multi-domain synthesis: judge panels, audit summaries, architectural tradeoffs, cross-finding correlation.
-  - `fable` — novel long-chain reasoning over broad unsolved problems; use sparingly, only when `opus` is demonstrably insufficient.
-  - `opusplan` — Opus plans, Sonnet executes; use when plan quality on a hard multi-step task matters more than the Opus-rate plan-phase cost.
+- Classify the mission first, then pick the minimum capable tier. Pass `model` to every subagent — omitting it silently runs N copies of the main-loop model across the full fan-out. Use these shorthands in both Agent tool calls (`model: "sonnet"`) and Workflow `agent(..., {model: "sonnet"})` opts:
+  - `haiku` — **Quick/Routine**: file lookup, grep, diff, small summary, format/lint, JSON reshaping, docs/README edits, existence checks. Failure is cheap.
+  - `sonnet` — **Standard Build**: bounded implementation, bug fix, test writing, code review, docs drafting, multi-file investigation, fact verification, research. Single-domain.
+  - `opus` — **Deep Reasoning**: architecture, security, production risk, irreversible decisions, ambiguous debugging, failed retries at a lower tier, high-stakes synthesis. Multi-domain.
+  - `fable` — **Novel/Unsolved**: broad open-ended problems requiring long-chain novel reasoning. Use sparingly — only when `opus` is demonstrably insufficient.
+  - `opusplan` — Opus plans, Sonnet executes. Use when plan quality on a hard multi-step task matters more than the Opus plan-phase cost.
+- If the current model fits the mission, stay quiet — don't suggest switching unless the mismatch is clear. On a failed retry, escalate to the next tier rather than repeating at the same tier.
 - Prefer fresh-context verifier subagents over self-review for writing, audits, and multi-file changes. Where the project defines deterministic verification (tests, lint, `lgtm`), run that first; reserve verifiers for semantic or approach review.
 - Always put the session's established ground truth in a verifier's prompt — verified facts, settled decisions, sources already checked. Without the brief a verifier re-litigates settled facts; with it, it catches real errors.
 - Write subagent briefs with explicit structured fields: goal, done-criteria, constraints, non-goals, verification method.
+
+## Workflows
+
+- **`pipeline()` by default, `parallel()` only for genuine barriers.** `pipeline(items, ...stages)` streams each item through all stages independently — no wait for other items to finish a stage. Use `parallel(thunks)` only when stage N genuinely needs ALL of stage N-1's results (dedup across the full set, early-exit on zero count, cross-item synthesis). A filter between two `pipeline()` calls is correct; a `parallel()` barrier just to flatten is not.
+- **Always set `model` on per-item transform agents.** Bulk fan-out without a `model` runs N copies of the main-loop model. Set `model: 'sonnet'` (or `'haiku'`) on every per-item stage; omit only on judge/synthesis agents where main-loop quality is the requirement.
+- **`schema` returns `null` on failure — always `.filter(Boolean)`.** When `schema` is set, a failing agent returns `null` instead of an empty string. Filter before any `.map`, `.reduce`, or property access: `results.filter(Boolean)`.
+- **`phase()` and `agent({phase:})` must both match `meta.phases[].title` exactly.** `phase('X')` advances the UI bar; `agent({phase: 'X'})` places the agent tile. A typo in either silently orphans agents in the display. `meta` must be a pure object literal — no variables, template literals, or function calls.
+- **Loop-until-dry for exhaustive discovery.** When the work-list size is unknown, keep spawning finders until K consecutive rounds return nothing new: `while (dry < 2) { ...if (!fresh.length) { dry++; continue } dry = 0; ... }`. Track seen items across rounds with a `Set` to avoid re-processing.
+- **Budget-aware scaling.** Guard dynamic loops with `while (budget.total && budget.remaining() > 50_000)` to scale depth to the user's `+Nk` token directive without overshooting it.
 
 ## Facts and research
 
