@@ -37,4 +37,10 @@ cp managed-settings.opusplan.json \
 
 **Telemetry:** `settings.json` includes OTLP env vars pointed at `http://127.0.0.1:10198`. Remove or update if you don't have a local collector. The `OTEL_EXPORTER_OTLP_HEADERS` field is where an auth token would go — never commit a value there.
 
-**Plugins:** the `enabledPlugins` and `extraKnownMarketplaces` entries in `settings.json` are personal. Remove them or replace with your own.
+**Plugins:** the `enabledPlugins` and `extraKnownMarketplaces` entries in `settings.json` are personal. Remove them or replace with your own. The ones registered here:
+
+| Plugin | Repo | What it does |
+|--------|------|--------------|
+| `message-timestamps` | [zoharbabin/claude-code-message-timestamps](https://github.com/zoharbabin/claude-code-message-timestamps) | Adds a timestamp to every user prompt submission |
+| `avatar-presentation-skill` | [zoharbabin/avatar-presentation-skill](https://github.com/zoharbabin/avatar-presentation-skill) | Skill for generating avatar-driven presentations |
+| `kalt-ai-plugins` | [kaltura/kalt-ai-plugin-marketplace](https://github.com/kaltura/kalt-ai-plugin-marketplace) | Kaltura internal plugin marketplace |
