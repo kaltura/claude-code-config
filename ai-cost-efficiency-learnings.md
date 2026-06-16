@@ -21,6 +21,8 @@ I reduced my daily AI spend from $1,119 to $160 — without changing the type or
 
 Same projects. Same type of work. The change was in configuration, not workload.
 
+**Quality held.** The work across both periods was the same in type and complexity — releases shipped, docs written and reviewed, code reviewed, tools executed and tested, research was performed. There was no noticeable degradation in output quality across all tasks. Opus was reached for in only a handful of cases where the task genuinely warranted it: a multi-domain architecture audit and refactor of a full repo that required long-horizon reasoning. Everything else ran on Sonnet or Haiku without issue. The 86% cost reduction came from eliminating Opus on work Sonnet could handle — not from accepting lower quality.
+
 ---
 
 ## What actually drives the bill
