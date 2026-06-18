@@ -24,6 +24,7 @@
 
 - Decompose tasks into independent pieces, then cover them in parallel. Keep working while subagents run.
 - Use **Agent** for a single independent workstream. Use **Workflow** when structure is known up front and full coverage matters — fan out → verify each result → synthesize. Bias toward thoroughness on research/review/audit; direct pass on small scoped changes.
+- **`/compact` before heavy fan-outs.** Each spawned agent cold-starts its own cache namespace from the context it inherits. In a long session, run `/compact` before launching a multi-agent or Workflow fan-out — the smaller the inherited context, the less you pay multiplied across the whole fleet.
 
 ## Checkpoints
 
