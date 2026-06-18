@@ -91,6 +91,8 @@ Cache is the dominant cost driver on long running sessions and agentic loops (co
 
 **Lean system prompts and project guidance.** A 10K-token system prompt on a 50-agent workflow costs 500K tokens in cache reads just to deliver instructions. I review guidance files regularly and cut anything that isn't load-bearing.
 
+**`/compact` before agent or workflow fan-outs.** Each spawned agent cold-starts its own cache namespace from whatever context it inherits. In a long session, that means every agent in a fleet re-reads the full accumulated context — multiplied across the whole fleet. On June 16, a development session that had grown large spawned 16 agents and ran 3 workflows without compacting first; Sonnet cache reads spiked **21× in a single day** ($0.73 → $15.57), entirely from context multiplication rather than more work. Running `/compact` before launching a multi-agent or Workflow fan-out shrinks the context each agent inherits and cuts that multiplier at the source.
+
 **`/compact` mid-session.** Compacts and summarizes conversation history into a shorter representation. It writes a new, smaller cache entry and reduces every subsequent turn's cache read cost. Use it when the early history is no longer load-bearing — long debugging sessions, multi-step implementations where the exploration phase is resolved.
 
 **`/clear` between tasks.** Resets context entirely. Carrying forward the history of an unrelated session is pure cost with no benefit. Use it whenever a new task is genuinely independent of what came before.
