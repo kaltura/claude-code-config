@@ -110,6 +110,8 @@ Cache is the dominant cost driver on long running sessions and agentic loops (co
 
 > **Going further: hooks.** For teams running very long agentic sessions where losing mid-task context is costly, Claude Code's `PreCompact` and `PostCompact` hook events let you save state before compaction and inject a recovery brief after. The config keys above cover the common case; hooks are an optional layer for more demanding workflows.
 
+**`CLAUDE_CODE_ATTRIBUTION_HEADER=0` — eliminate attribution-induced cache misses.** Claude Code normally appends an attribution string ("🤖 Generated with Claude Code") to API calls. A bug causes this text to be injected at a byte offset that varies per-call depending on request context. Since KV/prompt caching is a strict byte-level prefix match, any byte difference at position N invalidates all cache breakpoints from N onward. In a 10-agent parallel workflow, this means 10 cache misses instead of 1 write + 9 reads — even when every agent's logical system prompt is identical. Setting `CLAUDE_CODE_ATTRIBUTION_HEADER=0` disables the injection entirely, stabilizing system prompt bytes and restoring expected cache hit rates. Add it to `managed-settings.json` alongside the compaction keys.
+
 ---
 
 ## Practice 3 — Set defaults at the org level
@@ -126,6 +128,7 @@ Individual sessions shouldn't be able to silently default to frontier models. En
     "ANTHROPIC_DEFAULT_SONNET_MODEL": "global.anthropic.claude-sonnet-4-6",
     "ANTHROPIC_DEFAULT_OPUS_MODEL":   "global.anthropic.claude-opus-4-8",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL":  "global.anthropic.claude-haiku-4-5-20251001-v1:0",
+    "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
     "CLAUDE_AUTOCOMPACT_PCT_OVERRIDE": "60",
     "CLAUDE_CODE_AUTO_COMPACT_WINDOW": "300000"
   }
