@@ -70,11 +70,11 @@ After the change, the same work distributed across the tier it deserved:
 | Tier | Model | Context window | Use for |
 |---|---|---|---|
 | Quick / Routine | **Haiku 4.5** | 200K | File lookup, grep, diff, format/lint, JSON reshaping, docs edits, existence checks — **not suitable for large codebases or long sessions** |
-| Standard Build | **Sonnet 5** | 1M | Bounded implementation, bug fix, test writing, code review, multi-file investigation, research |
-| Deep Reasoning | **Sonnet 5** | 1M | Architecture decisions, security review, production risk, ambiguous debugging — Sonnet handles most of this well |
+| Standard Build | **Sonnet 5** (was Sonnet 4.6) | 1M | Bounded implementation, bug fix, test writing, code review, multi-file investigation, research |
+| Deep Reasoning | **Sonnet 5** (was Sonnet 4.6) | 1M | Architecture decisions, security review, production risk, ambiguous debugging — Sonnet handles most of this well |
 | Hardest Problems | **Opus 4.8** | 1M | Multi-domain synthesis, genuinely ambiguous problems, irreversible high-stakes decisions |
 
-Haiku's 200K cap is a hard constraint, not a soft one — if a task requires deep context (large codebase, long conversation history, big documents), Sonnet is the floor regardless of cost. Sonnet 4.6 is the cheapest model with a 1M context window.
+Haiku's 200K cap is a hard constraint, not a soft one — if a task requires deep context (large codebase, long conversation history, big documents), Sonnet is the floor regardless of cost. Sonnet 5 is currently the cheapest 1M-context model (through Aug 31); Sonnet 4.6 remains available at the same price tier from Sep 1.
 
 **Classify upfront — don't plan to escalate.** In a long-running agentic loop, the model will not tell you it failed. It will do its best, produce a plausible-looking result, and continue. By the time you notice something went wrong, you've paid for the full Sonnet run, paid again for the Opus retry, and potentially accepted bad intermediate output. The right approach is to characterize the task before the first token and commit to the appropriate model. The signals that point to Opus: the problem is genuinely ambiguous (no clear success criteria), it spans multiple domains, or a plausible-but-wrong answer is dangerous. If those signals aren't present, Sonnet is the right call — not as a trial run, but as the final answer.
 
@@ -190,7 +190,7 @@ The better lever for overnight autonomous tasks is model tiering: a well-configu
 
 | Practice | Before | After |
 |---|---|---|
-| Default model | Opus 4.8 (everything) | Sonnet 5 (default), tiered by task |
+| Default model | Opus 4.8 (everything) | Sonnet 5 (default, prev. Sonnet 4.6), tiered by task |
 | Subagent model | Inherited from parent (Opus) | Explicit: Haiku/Sonnet/Opus by task type |
 | Bedrock profile | Bare aliases → regional | Explicit global IDs |
 | Auto-compaction | Near hard limit (~99%) | At 60% context fill |
