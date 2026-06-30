@@ -47,6 +47,8 @@ The practical consequence: optimizing input/output tokens is fine-tuning. Optimi
 | Model | Input | Cache read | Cache write (5m) | Output |
 |---|---|---|---|---|
 | Opus 4.8 · global | $5.00 | $0.50 | $6.25 | $25.00 |
+| Sonnet 5 · global (through Aug 31) | $2.00 | $0.20 | $4.00 | $10.00 |
+| Sonnet 5 · global (from Sep 1) | $3.00 | $0.30 | $6.00 | $15.00 |
 | Sonnet 4.6 · global | $3.00 | $0.30 | $3.75 | $15.00 |
 | Haiku 4.5 · global | $1.00 | $0.10 | $1.25 | $5.00 |
 | Sonnet 4.5 · regional | $3.30 | $0.33 | $4.13 | $16.50 |
@@ -68,8 +70,8 @@ After the change, the same work distributed across the tier it deserved:
 | Tier | Model | Context window | Use for |
 |---|---|---|---|
 | Quick / Routine | **Haiku 4.5** | 200K | File lookup, grep, diff, format/lint, JSON reshaping, docs edits, existence checks — **not suitable for large codebases or long sessions** |
-| Standard Build | **Sonnet 4.6** | 1M | Bounded implementation, bug fix, test writing, code review, multi-file investigation, research |
-| Deep Reasoning | **Sonnet 4.6** | 1M | Architecture decisions, security review, production risk, ambiguous debugging — Sonnet handles most of this well |
+| Standard Build | **Sonnet 5** | 1M | Bounded implementation, bug fix, test writing, code review, multi-file investigation, research |
+| Deep Reasoning | **Sonnet 5** | 1M | Architecture decisions, security review, production risk, ambiguous debugging — Sonnet handles most of this well |
 | Hardest Problems | **Opus 4.8** | 1M | Multi-domain synthesis, genuinely ambiguous problems, irreversible high-stakes decisions |
 
 Haiku's 200K cap is a hard constraint, not a soft one — if a task requires deep context (large codebase, long conversation history, big documents), Sonnet is the floor regardless of cost. Sonnet 4.6 is the cheapest model with a 1M context window.
@@ -125,7 +127,7 @@ Individual sessions shouldn't be able to silently default to frontier models. En
   "model": "sonnet",
   "availableModels": ["sonnet", "opus", "haiku", "opusplan"],
   "env": {
-    "ANTHROPIC_DEFAULT_SONNET_MODEL": "global.anthropic.claude-sonnet-4-6",
+    "ANTHROPIC_DEFAULT_SONNET_MODEL": "global.anthropic.claude-sonnet-5",
     "ANTHROPIC_DEFAULT_OPUS_MODEL":   "global.anthropic.claude-opus-4-8",
     "ANTHROPIC_DEFAULT_HAIKU_MODEL":  "global.anthropic.claude-haiku-4-5-20251001-v1:0",
     "CLAUDE_CODE_ATTRIBUTION_HEADER": "0",
@@ -188,7 +190,7 @@ The better lever for overnight autonomous tasks is model tiering: a well-configu
 
 | Practice | Before | After |
 |---|---|---|
-| Default model | Opus 4.8 (everything) | Sonnet 4.6 (default), tiered by task |
+| Default model | Opus 4.8 (everything) | Sonnet 5 (default), tiered by task |
 | Subagent model | Inherited from parent (Opus) | Explicit: Haiku/Sonnet/Opus by task type |
 | Bedrock profile | Bare aliases → regional | Explicit global IDs |
 | Auto-compaction | Near hard limit (~99%) | At 60% context fill |
