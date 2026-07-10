@@ -38,7 +38,7 @@ Before looking at the data, I assumed input and output tokens were where the mon
 | Fresh input | 0.1% | 0.6% |
 | Output | 0.2% | 1.1% |
 
-The practical consequence: optimizing input/output tokens is fine-tuning. Optimizing cache read rate and volume is where the real leverage is.
+The practical consequence: optimizing input/output tokens is fine-tuning. Optimizing cache read rate and volume is where the real gains are.
 
 ---
 

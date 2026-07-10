@@ -44,3 +44,11 @@ cp managed-settings.opusplan.json \
 | `message-timestamps` | [zoharbabin/claude-code-message-timestamps](https://github.com/zoharbabin/claude-code-message-timestamps) | Adds a timestamp to every user prompt submission |
 | `avatar-presentation-skill` | [zoharbabin/avatar-presentation-skill](https://github.com/zoharbabin/avatar-presentation-skill) | Skill for generating avatar-driven presentations |
 | `kalt-ai-plugins` | [kaltura/kalt-ai-plugin-marketplace](https://github.com/kaltura/kalt-ai-plugin-marketplace) | Kaltura internal plugin marketplace |
+
+## Further reading
+
+The data and reasoning behind the defaults in this repo:
+
+- [`ai-cost-efficiency-learnings.md`](./ai-cost-efficiency-learnings.md) — how one deployment cut daily spend 86% through model tiering and cache discipline
+- [`model-tiers-vs-harness-guide.md`](./model-tiers-vs-harness-guide.md) — when to fix your prompt/harness, when to raise effort, and when to actually escalate model tier
+- [`lessons-from-re-auditing-my-own-cost-report.md`](./lessons-from-re-auditing-my-own-cost-report.md) — four lessons from auditing whether those savings held up over time, including a caching pitfall that quietly erased a cheaper model's rate-card advantage
