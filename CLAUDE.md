@@ -37,7 +37,7 @@
   - `haiku` — **Quick/Routine**: file lookup, grep, diff, summary, format/lint, JSON reshaping, docs edits. 200K context cap — not for large codebases or long sessions.
   - `sonnet` — **Standard/Deep**: implementation, bug fix, tests, code review, research, architecture, security review. Right default for ~90% of tasks.
   - `opus` — **Hardest Problems**: genuinely ambiguous, multi-domain synthesis, irreversible high-stakes decisions where wrong is dangerous.
-  - `fable` — **Novel/Unsolved**: long-chain novel reasoning. Only when `opus` is demonstrably insufficient.
+  - `fable` — **Novel/Unsolved**: long-chain novel reasoning. Only when `opus` at `xhigh` is demonstrably insufficient, or the task specifically rewards Fable's lower hallucination rate over Opus 5's lower price (research/citation-heavy work, factual-accuracy-critical tasks).
   - `opusplan` — Opus plans, Sonnet executes. When plan quality matters more than Opus plan-phase cost.
 - If the current model fits the mission, stay quiet — don't suggest switching unless the mismatch is clear.
 - Prefer fresh-context verifier subagents over self-review. Run deterministic checks (tests, lint) first; use verifiers for semantic review.
@@ -74,5 +74,6 @@
 
 ## Fable 5 (shorthand: `fable`)
 
-- Classifiers (cyber, bio/chem, reasoning extraction) are conservative — a trip returns `refusal` with no fallback. Route security/bio subagents to `opus`; suggest relaunching on Opus 4.8 if such a task arrives mid-session.
+- Opus 5 now beats Fable 5 on blended intelligence (Artificial Analysis) at roughly half the per-token price, so the bar for reaching Fable is higher than it used to be — try Opus 5 at `xhigh` first. Fable's real remaining edge: lower hallucination rate and stronger factual-knowledge benchmarks (AA-Omniscience, CritPt). Reach for it when accuracy on uncertain/factual questions matters more than reasoning depth, not just because a task is hard.
+- Classifiers (cyber, bio/chem, reasoning extraction) are conservative — a trip returns `refusal` with no fallback. Route security/bio subagents to `opus`; suggest relaunching on Opus 5 if such a task arrives mid-session.
 - For reasoning visibility, read structured `thinking` blocks (`display: "summarized"`).

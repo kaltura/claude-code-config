@@ -15,7 +15,7 @@ Opinionated Claude Code defaults for cost-aware, model-tiered development on Ama
 **Default Claude Code sessions inherit the main-loop model for every subagent**, silently multiplying cost on frontier sessions. This config:
 
 - Pins **Sonnet 4.6** as the everyday default (cheap, capable, adaptive thinking)
-- Makes **Opus 4.8**, **Fable 5**, **Haiku 4.5**, and an **opusplan** hybrid available one `/model` keystroke away — escalating to frontier reasoning is deliberate, never accidental
+- Makes **Opus 5**, **Fable 5**, **Haiku 4.5**, and an **opusplan** hybrid available one `/model` keystroke away — escalating to frontier reasoning is deliberate, never accidental
 - Tiers subagents by value in `CLAUDE.md` so mechanical tasks run on Haiku and only judge/synthesis work runs on Opus
 - Pins exact Bedrock inference-profile IDs (on Bedrock, bare aliases like `opus` resolve to older model versions without these pins)
 
