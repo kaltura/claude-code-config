@@ -34,5 +34,8 @@
   },
   "skipDangerousModePermissionPrompt": true,
   "teammateMode": "auto",
-  "skipAutoPermissionPrompt": true
+  "skipAutoPermissionPrompt": true,
+  "claudeMdExcludes": [
+    "/opt/homebrew/CLAUDE.md"
+  ]
 }

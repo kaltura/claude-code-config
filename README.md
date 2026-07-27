@@ -45,6 +45,8 @@ cp managed-settings.opusplan.json \
 | `avatar-presentation-skill` | [zoharbabin/avatar-presentation-skill](https://github.com/zoharbabin/avatar-presentation-skill) | Skill for generating avatar-driven presentations |
 | `kalt-ai-plugins` | [kaltura/kalt-ai-plugin-marketplace](https://github.com/kaltura/kalt-ai-plugin-marketplace) | Kaltura internal plugin marketplace |
 
+**`claudeMdExcludes`:** `settings.json` excludes `/opt/homebrew/CLAUDE.md` from auto-loading. This is a personal filesystem-layout fix, not a general recommendation: on Apple Silicon, `brew --prefix` is `/opt/homebrew`, and Homebrew commits its own contributor `CLAUDE.md`/`AGENTS.md` at that repo's root. Claude Code walks up the directory tree and loads every ancestor `CLAUDE.md` it finds, so any project nested under `/opt/homebrew` (e.g. `/opt/homebrew/var/www/...`) picks up Homebrew's Ruby/Sorbet/RuboCop guidance by accident. Excluding the one file also suppresses `AGENTS.md`, since it's only pulled in via an `@AGENTS.md` import inside that `CLAUDE.md` — excluding the importer means the import never fires. If your projects don't live under `/opt/homebrew`, remove this key entirely.
+
 ## Further reading
 
 The data and reasoning behind the defaults in this repo:
