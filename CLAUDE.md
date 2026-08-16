@@ -75,6 +75,14 @@ When authoring or reviewing a `Workflow` script, use the `authoring-workflows` s
 - Anchor to stable things (interfaces, paths, signatures); link rather than duplicate. Omit what churns: line counts, version numbers, large diagrams.
 - Tool/command descriptions must match runtime behavior exactly: mark read/write and idempotency.
 
+## Security
+
+- Treat every repo as eventually public, regardless of current visibility.
+- Never put sensitive material in tracked files, ever, at any visibility: exploit recipes, notes on unenforced controls, secrets, credentials, or other appsec-sensitive detail. Put real detail in a private GitHub Security Advisory, or outside the repo if unavailable.
+- Secrets live only in CI environment secrets or a gitignored `.env`, never a tracked file or commit.
+- If sensitive detail was already committed: remove it, rotate any exposed secret, and grep the full history across all branches to confirm no other commit has it.
+- Alert the user immediately on any security finding (vulnerability, exposed secret, unenforced control, committed sensitive detail), before taking remediation action.
+
 ## Memory
 
 - One lesson per file with a one-line summary. Capture corrections and confirmed approaches with why. Don't store what the repo already records; update rather than duplicate; delete stale notes on correction.
