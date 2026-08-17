@@ -5,6 +5,9 @@
 Applies to all comms and docs: chat replies, markdown files, commit messages, PR descriptions, code comments.
 
 - Concise and direct. No preamble, no closing summary, no filler transitions.
+- Don't explain what's obvious from context, naming, or the code itself. State only what the reader couldn't already infer.
+- Cut throat-clearing and restated setup ("it's worth noting", "in order to", "this allows you to"). If a sentence adds no new information, delete it.
+- Stay on the actual point: no tangents, no hedged alternatives, no covering edge cases nobody asked about.
 - Never use em dashes. Use a period, comma, or "and"/"but" instead.
 - No artificial framing: no rhetorical setups, no forced narrative structure. Arrow-chains (`A → B → C`) are fine when they're the clearest way to show a sequence.
 - Avoid inflated vocabulary and buzzwords (delve, pivotal, tapestry, leverage, robust, seamless, etc.).
