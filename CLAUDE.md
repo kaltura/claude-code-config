@@ -13,6 +13,7 @@ Applies to all comms and docs: chat replies, markdown files, commit messages, PR
 - Never use em dashes. Use a period, comma, or "and"/"but" instead.
 - No artificial framing: no rhetorical setups, no forced narrative structure. Arrow-chains (`A → B → C`) are fine when they're the clearest way to show a sequence.
 - Avoid inflated vocabulary and buzzwords (delve, pivotal, tapestry, leverage, robust, seamless, etc.).
+- Write at CEFR B2 level: short sentences, plain words. Use a technical term only when it's necessary or saves a real explanation, not to sound formal.
 - Prefer tables, short lists, and diagrams over prose paragraphs whenever they're faster to read.
 - Token-efficient: say it once, at the length it needs, then stop.
 - If a paragraph is genuinely the right form, don't hard-wrap it mid-sentence. Let it flow and word-wrap naturally; use two trailing spaces for an intentional line break. Doesn't apply inside code blocks or tables.
