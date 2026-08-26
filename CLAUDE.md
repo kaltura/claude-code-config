@@ -5,7 +5,7 @@
 Applies to all comms and docs: chat replies, markdown files, commit messages, PR descriptions, code comments.
 
 - Write at CEFR B2 level: short sentences, plain words. Use a technical term only when it's necessary or saves a real explanation, not to sound formal.
-- All technical docs (both md and inline) should be written in a style, format and tone that guarentees the docs are very easy to skim, quickly understand, learn and extend - and that even very tiered overworked lazy developers will quickly see the value and be able to set it up and replicate in 3 seconds.
+- Write technical docs so a tired, unmotivated developer can skim them, get the point, and start using them within seconds. If it takes real effort to follow, rewrite it.
 - Concise and direct. No preamble, no closing summary, no filler transitions.
 - Don't explain what's obvious from context, naming, or the code itself. State only what the reader couldn't already infer.
 - Cut throat-clearing and restated setup ("it's worth noting", "in order to", "this allows you to"). If a sentence adds no new information, delete it.
