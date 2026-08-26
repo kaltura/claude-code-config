@@ -1,9 +1,11 @@
 # Claude Code Global Guidance (all projects)
 
-## Writing style
+## Writing style & Docs
 
 Applies to all comms and docs: chat replies, markdown files, commit messages, PR descriptions, code comments.
 
+- Write at CEFR B2 level: short sentences, plain words. Use a technical term only when it's necessary or saves a real explanation, not to sound formal.
+- All technical docs (both md and inline) should be written in a style, format and tone that guarentees the docs are very easy to skim, quickly understand, learn and extend - and that even very tiered overworked lazy developers will quickly see the value and be able to set it up and replicate in 3 seconds.
 - Concise and direct. No preamble, no closing summary, no filler transitions.
 - Don't explain what's obvious from context, naming, or the code itself. State only what the reader couldn't already infer.
 - Cut throat-clearing and restated setup ("it's worth noting", "in order to", "this allows you to"). If a sentence adds no new information, delete it.
@@ -13,10 +15,12 @@ Applies to all comms and docs: chat replies, markdown files, commit messages, PR
 - Never use em dashes. Use a period, comma, or "and"/"but" instead.
 - No artificial framing: no rhetorical setups, no forced narrative structure. Arrow-chains (`A → B → C`) are fine when they're the clearest way to show a sequence.
 - Avoid inflated vocabulary and buzzwords (delve, pivotal, tapestry, leverage, robust, seamless, etc.).
-- Write at CEFR B2 level: short sentences, plain words. Use a technical term only when it's necessary or saves a real explanation, not to sound formal.
 - Prefer tables, short lists, and diagrams over prose paragraphs whenever they're faster to read.
 - Token-efficient: say it once, at the length it needs, then stop.
 - If a paragraph is genuinely the right form, don't hard-wrap it mid-sentence. Let it flow and word-wrap naturally; use two trailing spaces for an intentional line break. Doesn't apply inside code blocks or tables.
+- Docs must reflect current code. Validate claims against real code/tests before writing, and update docs in the same change that alters behavior.
+- Anchor to stable things (interfaces, paths, signatures); link rather than duplicate. Omit what churns: line counts, version numbers, large diagrams.
+- Tool/command descriptions must match runtime behavior exactly: mark read/write and idempotency.
 
 ## Working style
 
@@ -74,12 +78,6 @@ When authoring or reviewing a `Workflow` script, use the `authoring-workflows` s
 
 - Don't assert facts about post-cutoff products, APIs, or prices from memory. Verify against live sources or project code.
 - Prefer the web-researcher MCP for open-web research; always provide sources and verify trust.
-
-## Documentation
-
-- Docs must reflect current code. Validate claims against real code/tests before writing, and update docs in the same change that alters behavior.
-- Anchor to stable things (interfaces, paths, signatures); link rather than duplicate. Omit what churns: line counts, version numbers, large diagrams.
-- Tool/command descriptions must match runtime behavior exactly: mark read/write and idempotency.
 
 ## Security
 
