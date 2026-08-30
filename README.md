@@ -9,6 +9,7 @@ Opinionated Claude Code defaults for cost-aware, model-tiered development on Ama
 | `CLAUDE.md` | `~/.claude/CLAUDE.md` | Global guidance loaded into every session: working style, scope discipline, subagent model tiers, memory rules |
 | `settings.json` | `~/.claude/settings.json` | User settings: plugin marketplaces, teammate mode, permission prompt config |
 | `managed-settings.opusplan.json` | `/Library/Application Support/ClaudeCode/managed-settings.json` | Model defaults, effort level, env vars, Bedrock model ID pins, deny rules |
+| `git-hooks/commit-msg` | `~/.claude/git-hooks/commit-msg` + `git config --global core.hooksPath ~/.claude/git-hooks` | Strips the `noreply@anthropic.com` email from Claude's `Co-Authored-By` commit trailer, keeping just the model name |
 
 ## Why
 
@@ -29,6 +30,9 @@ cp CLAUDE.md ~/.claude/CLAUDE.md
 cp settings.json ~/.claude/settings.json
 cp managed-settings.opusplan.json \
   "/Library/Application Support/ClaudeCode/managed-settings.json"
+
+cp -r git-hooks ~/.claude/git-hooks
+git config --global core.hooksPath ~/.claude/git-hooks
 ```
 
 ## Before you deploy
@@ -44,6 +48,8 @@ cp managed-settings.opusplan.json \
 | `message-timestamps` | [zoharbabin/claude-code-message-timestamps](https://github.com/zoharbabin/claude-code-message-timestamps) | Adds a timestamp to every user prompt submission |
 | `avatar-presentation-skill` | [zoharbabin/avatar-presentation-skill](https://github.com/zoharbabin/avatar-presentation-skill) | Skill for generating avatar-driven presentations |
 | `kalt-ai-plugins` | [kaltura/kalt-ai-plugin-marketplace](https://github.com/kaltura/kalt-ai-plugin-marketplace) | Kaltura internal plugin marketplace |
+
+**Attribution:** `settings.json` sets `attribution.commit` and `attribution.pr` to hide the `noreply@anthropic.com` email, keeping just `Co-Authored-By: Claude Code`. A known Claude Code bug ([anthropics/claude-code#45137](https://github.com/anthropics/claude-code/issues/45137)) can make the commit-trailer setting get ignored, so `git-hooks/commit-msg` is a backup that rewrites the trailer after the fact. `core.hooksPath` is a global git setting: only install it if you don't already rely on per-repo hooks, since it replaces `core.hooksPath` for every repo on the machine that doesn't set its own. There's no equivalent backup for PR descriptions, since `gh pr create` doesn't go through git hooks.
 
 **`claudeMdExcludes`:** `settings.json` excludes `/opt/homebrew/CLAUDE.md` from auto-loading. This is a personal filesystem-layout fix, not a general recommendation: on Apple Silicon, `brew --prefix` is `/opt/homebrew`, and Homebrew commits its own contributor `CLAUDE.md`/`AGENTS.md` at that repo's root. Claude Code walks up the directory tree and loads every ancestor `CLAUDE.md` it finds, so any project nested under `/opt/homebrew` (e.g. `/opt/homebrew/var/www/...`) picks up Homebrew's Ruby/Sorbet/RuboCop guidance by accident. Excluding the one file also suppresses `AGENTS.md`, since it's only pulled in via an `@AGENTS.md` import inside that `CLAUDE.md` — excluding the importer means the import never fires. If your projects don't live under `/opt/homebrew`, remove this key entirely.
 

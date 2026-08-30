@@ -1,0 +1,5 @@
+#!/bin/sh
+# Strip Claude Code's noreply email from the Co-Authored-By trailer, keep the model name.
+# Turns "Co-Authored-By: Claude Sonnet 5 <noreply@anthropic.com>" into
+# "Co-Authored-By: Claude Code (Claude Sonnet 5)".
+sed -i '' -E 's/^(Co-[Aa]uthored-[Bb]y): (.+) <noreply@anthropic\.com>$/\1: Claude Code (\2)/' "$1"

@@ -32,6 +32,10 @@
       }
     }
   },
+  "attribution": {
+    "commit": "Co-Authored-By: Claude Code",
+    "pr": "Co-Authored-By: Claude Code"
+  },
   "skipDangerousModePermissionPrompt": true,
   "teammateMode": "auto",
   "skipAutoPermissionPrompt": true,
