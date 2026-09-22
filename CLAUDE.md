@@ -103,3 +103,16 @@ When authoring or reviewing a `Workflow` script, use the `authoring-workflows` s
 ## Brand voice
 
 - When writing Kaltura-facing docs, marketing copy, or other brand content, consult the brand-voice skill/tools for tone, terminology, and style rules rather than guessing.
+
+## Periodic self-check
+
+Re-score this file (and any other CLAUDE.md in a project) against these six headings occasionally, don't wait for drift to cause a problem:
+
+- **Commands** — build/test/lint commands, if any belong here. Intentionally light here by design: set-and-forget config goes in managed-settings, not CLAUDE.md.
+- **Architecture** — key modules/services and how they fit together.
+- **Patterns** — conventions worth stating once so they don't need repeating.
+- **Conciseness** — cut anything a reader could infer from the code or context.
+- **Currency** — does every claim still match the current code and tools?
+- **Actionability** — can a reader act on this without a follow-up question?
+
+Also diff this file against the project's other CLAUDE.md files (personal, repo, nested project) periodically to catch drift between copies meant to stay in sync.
